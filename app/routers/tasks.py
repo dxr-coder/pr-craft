@@ -13,7 +13,7 @@ router = APIRouter(
 
 @router.get("/")
 def list_tasks(db: Session = Depends(get_db)):
-    tasks = db.query(models.Task).order_by(models.Task.id.desc()).all()
+    tasks = db.query(models.Task).order_by(models.Task.id.asc()).all()
     return tasks
 
 
@@ -37,6 +37,16 @@ def get_task(task_id: int, db: Session = Depends(get_db)):
     if not task:
         return {"error": "任务不存在"}
     return task
+
+
+@router.delete("/{task_id}")
+def delete_task(task_id: int, db: Session = Depends(get_db)):
+    task = db.query(models.Task).filter(models.Task.id == task_id).first()
+    if not task:
+        return {"error": "任务不存在"}
+    db.delete(task)
+    db.commit()
+    return {"message": "任务已删除"}
 
 
 def run_workflow(task_id: int, issue: str):
