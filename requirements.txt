@@ -5,3 +5,6 @@ openai
 pydantic-settings
 ruff
 pre-commit
+loguru
+langgraph
+PyGithub
