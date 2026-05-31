@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     base_url: str = "https://api.deepseek.com"
     github_token: str = ""
     github_repo: str = "dxr-coder/pr-craft"
+    database_url: str = ""
 
     model_config = {"env_file": ".env", "extra": "ignore"}
 
